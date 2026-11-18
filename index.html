@@ -8,6 +8,64 @@
   <script src="app.js" defer></script>
 </head>
 <body>
-  <h1>シフトーク</h1>
+  <header class="app-header">
+    <div class="header-copy">
+      <p class="eyebrow">SHIFT PLANNER</p>
+      <h1>シフトーク</h1>
+      <p class="header-description">予定を見渡して、シフトをかんたん登録。</p>
+    </div>
+    <div class="today-marker">
+      <span>今日</span>
+      <strong id="today-label"></strong>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="calendar-section" aria-labelledby="calendar-heading">
+      <div class="section-heading calendar-heading">
+        <div>
+          <p class="eyebrow">SCHEDULE</p>
+          <h2 id="calendar-heading">勤務カレンダー</h2>
+        </div>
+        <div class="month-controls" aria-label="表示する月">
+          <button class="month-button" id="previous-month" type="button" aria-label="前の月">&#8592;</button>
+          <strong id="month-label" aria-live="polite"></strong>
+          <button class="month-button" id="next-month" type="button" aria-label="次の月">&#8594;</button>
+        </div>
+      </div>
+      <div class="calendar-grid" id="calendar-grid" aria-label="シフトカレンダー"></div>
+    </section>
+
+    <div class="lower-sections">
+      <section class="shift-form-section" aria-labelledby="form-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">NEW SHIFT</p>
+            <h2 id="form-heading">シフトを登録</h2>
+          </div>
+        </div>
+        <form id="shift-form" class="shift-form">
+          <label for="shift-date">勤務日</label>
+          <input id="shift-date" name="date" type="date" required>
+
+          <label for="shift-input">シフト内容</label>
+          <input id="shift-input" name="shift" type="text" maxlength="60" placeholder="例：早番 9:00〜17:00" required>
+
+          <button id="add-button" class="add-button" type="submit">登録する <span aria-hidden="true">&#8594;</span></button>
+          <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="shift-list-section" aria-labelledby="list-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR SHIFTS</p>
+            <h2 id="list-heading">登録したシフト</h2>
+          </div>
+        </div>
+        <ul class="shift-list" id="shift-list" aria-live="polite"></ul>
+      </section>
+    </div>
+  </main>
 </body>
 </html>
