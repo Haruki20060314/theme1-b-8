@@ -7,80 +7,253 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <header>
     <h1>シフトーク</h1>
   </header>
 
   <main>
-    <section aria-labelledby="calendar-heading">
+
+    <!-- ========================= -->
+    <!-- 上部：勤務カレンダー -->
+    <!-- ========================= -->
+    <section id="calendar-section">
+
       <h2 id="calendar-heading">勤務カレンダー</h2>
-      <table aria-label="2026年11月のシフトカレンダー">
-        <caption>2026年11月</caption>
+
+      <div id="calendar-controls">
+        <button id="prev-month" type="button">前月</button>
+        <span id="current-month">2026年11月</span>
+        <button id="next-month" type="button">次月</button>
+      </div>
+
+      <table aria-label="勤務カレンダー">
         <thead>
           <tr>
-            <th scope="col">月</th>
-            <th scope="col">火</th>
-            <th scope="col">水</th>
-            <th scope="col">木</th>
-            <th scope="col">金</th>
-            <th scope="col">土</th>
-            <th scope="col">日</th>
+            <th>月</th>
+            <th>火</th>
+            <th>水</th>
+            <th>木</th>
+            <th>金</th>
+            <th>土</th>
+            <th>日</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td>1</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <button class="date-shift">1</button>
+            </td>
           </tr>
+
           <tr>
-            <td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+            <td><button class="date-shift">2</button></td>
+            <td><button class="date-shift">3</button></td>
+            <td><button class="date-shift">4</button></td>
+            <td><button class="date-shift">5</button></td>
+            <td><button class="date-shift">6</button></td>
+            <td><button class="date-shift">7</button></td>
+            <td><button class="date-shift">8</button></td>
           </tr>
+
           <tr>
-            <td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td>
+            <td><button class="date-shift">9</button></td>
+            <td><button class="date-shift">10</button></td>
+            <td><button class="date-shift">11</button></td>
+            <td><button class="date-shift">12</button></td>
+            <td><button class="date-shift">13</button></td>
+            <td><button class="date-shift">14</button></td>
+            <td><button class="date-shift">15</button></td>
           </tr>
+
           <tr>
-            <td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td>
+            <td><button class="date-shift">16</button></td>
+            <td><button class="date-shift">17</button></td>
+            <td><button class="date-shift">18</button></td>
+            <td><button class="date-shift">19</button></td>
+            <td><button class="date-shift">20</button></td>
+            <td><button class="date-shift">21</button></td>
+            <td><button class="date-shift">22</button></td>
           </tr>
+
           <tr>
-            <td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td>
+            <td><button class="date-shift">23</button></td>
+            <td><button class="date-shift">24</button></td>
+            <td><button class="date-shift">25</button></td>
+            <td><button class="date-shift">26</button></td>
+            <td><button class="date-shift">27</button></td>
+            <td><button class="date-shift">28</button></td>
+            <td><button class="date-shift">29</button></td>
           </tr>
+
           <tr>
-            <td>30</td><td></td><td></td><td></td><td></td><td></td><td></td>
+            <td><button class="date-shift">30</button></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
+
     </section>
 
-    <section aria-labelledby="form-heading">
-      <h2 id="form-heading">シフトを登録</h2>
-      <form>
-        <label for="shift-date">勤務日</label>
-        <input id="shift-date" name="date" type="date">
+    <!-- ========================= -->
+    <!-- 中央：シフト登録・自分のシフト -->
+    <!-- ========================= -->
+    <section id="middle-section">
 
-        <label for="shift-input">シフト内容</label>
-        <input id="shift-input" name="shift" type="text" placeholder="例：早番 9:00〜17:00">
+      <!-- 左 -->
+      <div id="shift-input">
 
-        <button id="add-button" type="button">登録する</button>
-      </form>
+        <h2>シフト登録</h2>
+
+        <form>
+
+          <label for="shift-date">
+            勤務日
+          </label>
+
+          <input
+            type="date"
+            id="shift-date"
+            name="date"
+          >
+
+          <label for="start-time">
+            開始時間
+          </label>
+
+          <select id="start-time">
+            <option value="">選択してください</option>
+          </select>
+
+          <label for="end-time">
+            終了時間
+          </label>
+
+          <select id="end-time">
+            <option value="">選択してください</option>
+          </select>
+
+          <button
+            id="add-button"
+            type="button"
+          >
+            登録する
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- 右 -->
+      <div id="my-shift-section">
+
+        <h2>自分のシフト一覧</h2>
+
+        <ul id="shift-list">
+          <li>登録したシフトがここに並びます。</li>
+        </ul>
+
+      </div>
+
     </section>
 
-    <section aria-labelledby="list-heading">
-      <h2 id="list-heading">登録したシフト</h2>
-      <ul id="shift-list">
-        <li>登録したシフトがここに並びます。</li>
-      </ul>
+    <!-- ========================= -->
+    <!-- 下部：みんなのシフト・メッセージ -->
+    <!-- ========================= -->
+    <section id="bottom-section">
+
+      <!-- 左 -->
+      <div id="all-shift-section">
+
+        <h2>みんなのシフト</h2>
+
+        <p id="selected-date">
+          カレンダーの日付を選択してください
+        </p>
+
+        <div id="all-shift-list">
+
+          <div class="employee-row">
+            <span class="employee-name">山田</span>
+            <div class="shift-bar">
+              シフト表示エリア
+            </div>
+          </div>
+
+          <div class="employee-row">
+            <span class="employee-name">田中</span>
+            <div class="shift-bar">
+              シフト表示エリア
+            </div>
+          </div>
+
+          <div class="employee-row">
+            <span class="employee-name">鈴木</span>
+            <div class="shift-bar">
+              シフト表示エリア
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- 右 -->
+      <div id="message-section">
+
+        <h2>メッセージ</h2>
+
+        <div id="message-list">
+
+          <div class="message-item">
+
+            <div class="message-name">
+              山田
+            </div>
+
+            <div class="message-datetime">
+              2026/11/25 09:00
+            </div>
+
+            <div class="message-text">
+              メッセージがここに表示されます。
+            </div>
+
+          </div>
+
+        </div>
+
+        <textarea
+          id="message-input"
+          placeholder="メッセージを入力してください"
+        ></textarea>
+
+        <button
+          id="send-message"
+          type="button"
+        >
+          送信
+        </button>
+
+      </div>
+
     </section>
 
-    <!-- 追加：みんなのシフト -->
-    <section aria-labelledby="all-shift-heading">
-      <h2 id="all-shift-heading">みんなのシフト</h2>
+  </main>
 
-      <p id="selected-date">
-        カレンダーの日付を選択してください
-      </p>
+  <script src="app.js"></script>
 
-      <div id="all-shift-list">
-
-        <div class="employee-row">
-          <span class="employee-name">山田</span>
-          <div class="shift-bar"></div>
-    
+</body>
+</html>
