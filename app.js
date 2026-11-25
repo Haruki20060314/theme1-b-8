@@ -1,11 +1,18 @@
 const shiftForm = document.querySelector("form");
 const shiftDate = document.querySelector("#shift-date");
-const shiftInput = document.querySelector("#shift-input");
+const startTime = document.querySelector("#start-time");
+const endTime = document.querySelector("#end-time");
 const shiftList = document.querySelector("#shift-list");
 const addButton = document.querySelector("#add-button");
 
-if (shiftForm && shiftDate && shiftInput && shiftList && addButton) {
-
+if (
+  shiftForm &&
+  shiftDate &&
+  startTime &&
+  endTime &&
+  shiftList &&
+  addButton
+) {
   addButton.addEventListener("click", registerShift);
   loadShifts();
 }
@@ -35,14 +42,12 @@ function loadShifts() {
 
 function registerShift() {
   const date = shiftDate.value;
-  const label = shiftInput.value.trim();
+  const start = startTime.value;
+  const end = endTime.value;
 
-
-    savedShifts.forEach((shift) => {
-      shiftList.append(createShiftItem(shift));
-    });
+  if (!date || !start || !end) {
+    return;
   }
-
 
   if (
     shiftList.children.length === 1 &&
@@ -51,29 +56,26 @@ function registerShift() {
     shiftList.replaceChildren();
   }
 
-    if (!date || !label || !time) {
-      return;
-    }
+  const shift = {
+    id: `${Date.now()}-${Math.random()}`,
+    date,
+    start,
+    end,
+  };
 
-    const shift = {
-      id: `${Date.now()}-${Math.random()}`,
-      date,
-      time,
-      label,
-    };
-
+  shiftList.append(createShiftItem(shift));
 
   const savedShifts = JSON.parse(localStorage.getItem("shifts") || "[]");
   savedShifts.push(shift);
+
   localStorage.setItem("shifts", JSON.stringify(savedShifts));
-main
+}
 
-    const savedShifts = getSavedShifts();
-    localStorage.setItem("shifts", JSON.stringify([...savedShifts, shift]));
+function createShiftItem(shift) {
+  const item = document.createElement("li");
 
-    const [year, month] = date.split("-").map(Number);
-    calendarMonth = new Date(year, month - 1, 1);
-
+  item.textContent =
+    `${shift.date} ${shift.start}～${shift.end}`;
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
@@ -97,7 +99,13 @@ main
 
 function removeSavedShift(id) {
   const savedShifts = JSON.parse(localStorage.getItem("shifts") || "[]");
-  const remainingShifts = savedShifts.filter((shift) => shift.id !== id);
 
-  localStorage.setItem("shifts", JSON.stringify(remainingShifts));
+  const remainingShifts = savedShifts.filter(
+    (shift) => shift.id !== id
+  );
+
+  localStorage.setItem(
+    "shifts",
+    JSON.stringify(remainingShifts)
+  );
 }
