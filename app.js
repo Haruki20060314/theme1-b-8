@@ -1,19 +1,19 @@
 const shiftForm = document.querySelector("form");
 const shiftDate = document.querySelector("#shift-date");
-const shiftInput = document.querySelector("#shift-input");
+const startTime = document.querySelector("#start-time");
+const endTime = document.querySelector("#end-time");
 const shiftList = document.querySelector("#shift-list");
 const addButton = document.querySelector("#add-button");
 
-if (shiftForm && shiftDate && shiftInput && shiftList && addButton) {
-  shiftForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    registerShift();
-  });
-
-  if (addButton.type !== "submit") {
-    addButton.addEventListener("click", registerShift);
-  }
-
+if (
+  shiftForm &&
+  shiftDate &&
+  startTime &&
+  endTime &&
+  shiftList &&
+  addButton
+) {
+  addButton.addEventListener("click", registerShift);
   loadShifts();
 }
 
@@ -26,11 +26,15 @@ function loadShifts() {
     savedShifts = [];
   }
 
+  shiftList.replaceChildren();
+
   if (savedShifts.length === 0) {
+    const emptyItem = document.createElement("li");
+    emptyItem.textContent = "登録したシフトがここに並びます。";
+    shiftList.append(emptyItem);
     return;
   }
 
-  shiftList.replaceChildren();
   savedShifts.forEach((shift) => {
     shiftList.append(createShiftItem(shift));
   });
@@ -38,15 +42,16 @@ function loadShifts() {
 
 function registerShift() {
   const date = shiftDate.value;
-  const label = shiftInput.value.trim();
+  const start = startTime.value;
+  const end = endTime.value;
 
-  if (!date || !label) {
+  if (!date || !start || !end) {
     return;
   }
 
   if (
-    shiftList.children.length === 1
-    && shiftList.firstElementChild.textContent.includes("登録したシフト")
+    shiftList.children.length === 1 &&
+    shiftList.firstElementChild.textContent.includes("登録したシフト")
   ) {
     shiftList.replaceChildren();
   }
@@ -54,35 +59,53 @@ function registerShift() {
   const shift = {
     id: `${Date.now()}-${Math.random()}`,
     date,
-    label,
+    start,
+    end,
   };
 
   shiftList.append(createShiftItem(shift));
 
   const savedShifts = JSON.parse(localStorage.getItem("shifts") || "[]");
-  localStorage.setItem("shifts", JSON.stringify([...savedShifts, shift]));
+  savedShifts.push(shift);
 
-  shiftInput.value = "";
+  localStorage.setItem("shifts", JSON.stringify(savedShifts));
 }
 
 function createShiftItem(shift) {
   const item = document.createElement("li");
-  item.textContent = `${shift.date}: ${shift.label}`;
+
+  item.textContent =
+    `${shift.date} ${shift.start}～${shift.end}`;
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
   removeButton.textContent = "削除";
+
   removeButton.addEventListener("click", () => {
     item.remove();
     removeSavedShift(shift.id);
+
+    if (shiftList.children.length === 0) {
+      const emptyItem = document.createElement("li");
+      emptyItem.textContent = "登録したシフトがここに並びます。";
+      shiftList.append(emptyItem);
+    }
   });
 
   item.append(" ", removeButton);
+
   return item;
 }
 
 function removeSavedShift(id) {
   const savedShifts = JSON.parse(localStorage.getItem("shifts") || "[]");
-  const remainingShifts = savedShifts.filter((shift) => shift.id !== id);
-  localStorage.setItem("shifts", JSON.stringify(remainingShifts));
+
+  const remainingShifts = savedShifts.filter(
+    (shift) => shift.id !== id
+  );
+
+  localStorage.setItem(
+    "shifts",
+    JSON.stringify(remainingShifts)
+  );
 }
