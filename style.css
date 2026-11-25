@@ -1,13 +1,16 @@
 :root {
   color-scheme: light;
+
   --ink: #19352f;
   --muted: #64736d;
   --paper: #f3f6f1;
   --surface: #ffffff;
   --line: #dce5de;
+
   --green: #2f7157;
   --green-dark: #19493c;
   --green-soft: #e8f3ec;
+
   --coral: #c9553c;
 }
 
@@ -20,7 +23,8 @@ body {
   margin: 0;
   color: var(--ink);
   background-color: var(--paper);
-  background-image: linear-gradient(rgba(25, 73, 60, 0.035) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(25, 73, 60, 0.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(25, 73, 60, 0.035) 1px, transparent 1px);
   background-size: 24px 24px;
   font-family: "BIZ UDPGothic", "Yu Gothic UI", "Meiryo", sans-serif;
@@ -43,9 +47,13 @@ input:focus-visible {
   justify-content: space-between;
   gap: 24px;
   min-height: 190px;
-  padding: 34px max(24px, calc((100% - 1080px) / 2)) 30px;
+  padding: 34px max(24px, calc((100vw - 1080px) / 2)) 30px;
   color: #f6f8f3;
-  background: var(--green-dark);
+  background: linear-gradient(
+    135deg,
+    var(--green-dark) 0%,
+    var(--green) 100%
+  );
 }
 
 .header-copy h1,
@@ -99,7 +107,7 @@ input:focus-visible {
 .shift-form-section,
 .shift-list-section {
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 12px;
   background: var(--surface);
   box-shadow: 0 8px 24px rgba(25, 53, 47, 0.045);
 }
@@ -141,7 +149,7 @@ input:focus-visible {
   width: 36px;
   height: 36px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--green-dark);
   background: var(--surface);
   cursor: pointer;
@@ -245,7 +253,7 @@ input:focus-visible {
   min-height: 42px;
   padding: 9px 11px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--ink);
   background: #fff;
 }
@@ -262,7 +270,7 @@ input:focus-visible {
   margin-top: 7px;
   padding: 0 14px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 6px;
   color: white;
   background: var(--green);
   cursor: pointer;
@@ -311,7 +319,7 @@ input:focus-visible {
 .remove-button {
   padding: 6px 9px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--muted);
   background: white;
   cursor: pointer;
