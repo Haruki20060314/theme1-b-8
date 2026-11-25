@@ -5,6 +5,7 @@ const shiftList = document.querySelector("#shift-list");
 const addButton = document.querySelector("#add-button");
 
 if (shiftForm && shiftDate && shiftInput && shiftList && addButton) {
+
   addButton.addEventListener("click", registerShift);
   loadShifts();
 }
@@ -36,9 +37,12 @@ function registerShift() {
   const date = shiftDate.value;
   const label = shiftInput.value.trim();
 
-  if (!date || !label) {
-    return;
+
+    savedShifts.forEach((shift) => {
+      shiftList.append(createShiftItem(shift));
+    });
   }
+
 
   if (
     shiftList.children.length === 1 &&
@@ -47,24 +51,29 @@ function registerShift() {
     shiftList.replaceChildren();
   }
 
-  const shift = {
-    id: `${Date.now()}-${Math.random()}`,
-    date,
-    label,
-  };
+    if (!date || !label || !time) {
+      return;
+    }
 
-  shiftList.append(createShiftItem(shift));
+    const shift = {
+      id: `${Date.now()}-${Math.random()}`,
+      date,
+      time,
+      label,
+    };
+
 
   const savedShifts = JSON.parse(localStorage.getItem("shifts") || "[]");
   savedShifts.push(shift);
   localStorage.setItem("shifts", JSON.stringify(savedShifts));
+main
 
-  shiftInput.value = "";
-}
+    const savedShifts = getSavedShifts();
+    localStorage.setItem("shifts", JSON.stringify([...savedShifts, shift]));
 
-function createShiftItem(shift) {
-  const item = document.createElement("li");
-  item.textContent = `${shift.date}: ${shift.label}`;
+    const [year, month] = date.split("-").map(Number);
+    calendarMonth = new Date(year, month - 1, 1);
+
 
   const removeButton = document.createElement("button");
   removeButton.type = "button";
